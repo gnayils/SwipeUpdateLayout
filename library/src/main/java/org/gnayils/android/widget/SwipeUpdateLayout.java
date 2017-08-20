@@ -31,7 +31,7 @@ public class SwipeUpdateLayout extends ViewGroup {
     private static final float MAX_PROGRESS_ANGLE = .8f;
     private static final int INVALID_POINTER = -1;
     private static final int CIRCLE_VIEW_BG_LIGHT = 0xFFFAFAFA;
-    
+
     private static final int CIRCLE_VIEW_DIAMETER = 40;
     private int mCircleViewDiameter;
 
@@ -334,12 +334,14 @@ public class SwipeUpdateLayout extends ViewGroup {
         mUpdating = true;
         ensureCircleViewPosition(AT_TOP);
         animateOffsetToCorrectPosition(mCircleView.getTranslationY());
+
     }
 
     public void updateBottom() {
         mUpdating = true;
         ensureCircleViewPosition(AT_BOTTOM);
         animateOffsetToCorrectPosition(mCircleView.getTranslationY());
+
     }
 
     public void stopUpdating() {
@@ -348,7 +350,7 @@ public class SwipeUpdateLayout extends ViewGroup {
     }
 
     private boolean canChildScrollUp() {
-        if(!mAllowTopUpdate) {
+        if (!mAllowTopUpdate) {
             return true;
         }
         if (mChildVerticalScrollCallback != null) {
@@ -368,7 +370,7 @@ public class SwipeUpdateLayout extends ViewGroup {
     }
 
     private boolean canChildScrollDown() {
-        if(!mAllowBottomUpdate) {
+        if (!mAllowBottomUpdate) {
             return true;
         }
         if (mChildVerticalScrollCallback != null) {
@@ -450,7 +452,7 @@ public class SwipeUpdateLayout extends ViewGroup {
         float dragPercent = Math.min(1f, Math.abs(dragLength) / (mTotalDragDistance * 4f));
         float adjustedOffsetY = offsetY * (1f - dragPercent);
         if (mUpdatingPosition == AT_TOP) {
-            if(!canChildScrollUp() && mCircleView.getTranslationY() + adjustedOffsetY > 0) {
+            if (!canChildScrollUp() && mCircleView.getTranslationY() + adjustedOffsetY > 0) {
                 moveChildViewVertically(mCircleView.getTranslationY() + adjustedOffsetY);
             } else if (mCircleView.getTranslationY() == 0) {
                 mContentView.dispatchTouchEvent(ev);
@@ -460,7 +462,7 @@ public class SwipeUpdateLayout extends ViewGroup {
                 mContentView.dispatchTouchEvent(ev);
             }
         } else if (mUpdatingPosition == AT_BOTTOM) {
-            if(!canChildScrollDown() && mCircleView.getTranslationY() + adjustedOffsetY < 0) {
+            if (!canChildScrollDown() && mCircleView.getTranslationY() + adjustedOffsetY < 0) {
                 moveChildViewVertically(mCircleView.getTranslationY() + adjustedOffsetY);
             } else if (mCircleView.getTranslationY() == 0) {
                 mContentView.dispatchTouchEvent(ev);
@@ -518,37 +520,37 @@ public class SwipeUpdateLayout extends ViewGroup {
 
     private void moveChildViewVertically(float targetTranslationY) {
         mCircleView.setTranslationY(targetTranslationY);
-        if(mUpdatingPosition == AT_TOP && !mFreezeContentWhileTopUpdate) {
+        if (mUpdatingPosition == AT_TOP && !mFreezeContentWhileTopUpdate) {
             mContentView.setTranslationY(targetTranslationY);
-        } else if(mUpdatingPosition == AT_BOTTOM && !mFreezeContentWhileBottomUpdate) {
+        } else if (mUpdatingPosition == AT_BOTTOM && !mFreezeContentWhileBottomUpdate) {
             mContentView.setTranslationY(targetTranslationY);
         }
     }
 
     public void setAllowUpdatePosition(int allowUpdatePosition) {
-        if(allowUpdatePosition == AT_TOP) {
+        if (allowUpdatePosition == AT_TOP) {
             mAllowTopUpdate = true;
             mAllowBottomUpdate = false;
-        } else if(allowUpdatePosition == AT_BOTTOM) {
+        } else if (allowUpdatePosition == AT_BOTTOM) {
             mAllowTopUpdate = false;
             mAllowBottomUpdate = true;
-        } else if(allowUpdatePosition == AT_BOTH) {
+        } else if (allowUpdatePosition == AT_BOTH) {
             mAllowTopUpdate = true;
             mAllowBottomUpdate = true;
         }
     }
 
     public void setFreezeContentAtUpdatePosition(int freezeContentAtUpdatePosition) {
-        if(freezeContentAtUpdatePosition == AT_TOP) {
+        if (freezeContentAtUpdatePosition == AT_TOP) {
             mFreezeContentWhileTopUpdate = true;
             mFreezeContentWhileBottomUpdate = false;
-        } else if(freezeContentAtUpdatePosition == AT_BOTTOM) {
+        } else if (freezeContentAtUpdatePosition == AT_BOTTOM) {
             mFreezeContentWhileTopUpdate = false;
             mFreezeContentWhileBottomUpdate = true;
-        } else if(freezeContentAtUpdatePosition == AT_BOTH) {
+        } else if (freezeContentAtUpdatePosition == AT_BOTH) {
             mFreezeContentWhileTopUpdate = true;
             mFreezeContentWhileBottomUpdate = true;
-        } else if(freezeContentAtUpdatePosition == AT_NOWHERE) {
+        } else if (freezeContentAtUpdatePosition == AT_NOWHERE) {
             mFreezeContentWhileTopUpdate = false;
             mFreezeContentWhileBottomUpdate = false;
         }
